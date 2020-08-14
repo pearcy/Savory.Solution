@@ -39,6 +39,25 @@ namespace Savory.Controllers
       return RedirectToAction("Index");
     }
 
+    public ActionResult Edit(int id)
+    {
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavors => flavors.FlavorId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
+      return View(thisFlavor);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Flavor flavor, int TreatId)
+    {
+      if (TreatId != 0)
+      {
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+      }
+      _db.Entry(flavor).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
 
 
   }

@@ -21,5 +21,18 @@ namespace Savory.Controllers
       return View(model);
     }
 
+      public ActionResult Create()
+   {
+     return View();
+   }
+
+   [HttpPost]
+   public ActionResult Create(Treat treat)
+   {
+     _db.Treats.Add(treat);
+     _db.SaveChanges();
+     return RedirectToAction("Index");
+   }
+
   }
 }

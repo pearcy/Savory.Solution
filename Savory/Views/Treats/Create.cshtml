@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Savory.Models.Treat
+
+<h4>Add a New Treat</h4>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.TreatName)
+    @Html.TextBoxFor(model => model.TreatName)
+    <input type="submit" value="Add New Treat" />
+}
+<p>@Html.ActionLink("Show all Treats", "Index")</p>

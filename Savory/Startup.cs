@@ -1,13 +1,12 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Savory.Models;
+
+using Microsoft.AspNetCore.Identity;
 
 namespace Savory
 {
@@ -31,14 +30,19 @@ namespace Savory
         .AddDbContext<SavoryContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
 
+      //new code
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<SavoryContext>()
+                .AddDefaultTokenProviders();
+      
       services.Configure<IdentityOptions>(options =>
       {
-        options.Password.RequireDigit = false;
-        options.Password.RequiredLength = 0;
-        options.Password.RequireLowercase = false;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequiredUniqueChars = 0;
+          options.Password.RequireDigit = false;
+          options.Password.RequiredLength = 0;
+          options.Password.RequireLowercase = false;
+          options.Password.RequireNonAlphanumeric = false;
+          options.Password.RequireUppercase = false;
+          options.Password.RequiredUniqueChars = 0;
       });
     }
 
@@ -48,6 +52,7 @@ namespace Savory
 
       app.UseDeveloperExceptionPage();
 
+      //new code
       app.UseAuthentication();
 
       app.UseMvc(routes =>

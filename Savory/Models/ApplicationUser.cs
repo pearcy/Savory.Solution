@@ -1,9 +1,9 @@
-// using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
-// namespace Savory.Models
-// {
-//     public class ApplicationUser : IdentityUser
-//     {
+namespace Savory.Models
+{
+    public class ApplicationUser : IdentityUser
+    {
 
-//     }
-// }
+    }
+}

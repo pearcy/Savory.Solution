@@ -12,5 +12,6 @@ namespace Savory.Models
     public string FlavorName {get; set;}
     // public virtual ApplicationUser User {get; set;}
     public virtual ICollection<FlavorTreat> Flavors {get; set;}
-    
+
+  } 
 }

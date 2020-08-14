@@ -21,7 +21,25 @@ namespace Savory.Controllers
       return View(_db.Flavors.ToList());
     }
 
-    
+    public ActionResult Create()
+    {
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Flavor flavor, int TreatId)
+    {
+      _db.Flavors.Add(flavor);
+      if (TreatId != 0)
+      {
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+
 
   }
 }

@@ -9,6 +9,7 @@ using Savory.Models;
 
 namespace Savory.Controllers
 {
+
   public class TreatsController : Controller
   {
     private readonly SavoryContext _db;

@@ -1,7 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Savory.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Savory.Models;
 using Savory.ViewModels;
 
 namespace Savory.Controllers

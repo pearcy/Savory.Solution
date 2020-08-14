@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Savory.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Savory
 {
@@ -29,7 +32,7 @@ namespace Savory
         .AddDbContext<SavoryContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
 
-      //new code
+   
       services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<SavoryContext>()
                 .AddDefaultTokenProviders();

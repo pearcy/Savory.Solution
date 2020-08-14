@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Savory.Models;
 
 namespace Savory.Migrations
 {
     [DbContext(typeof(SavoryContext))]
-    partial class SavoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200814222322_ViewModels1")]
+    partial class ViewModels1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

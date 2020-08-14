@@ -10,7 +10,7 @@ namespace Savory.Models
       
     }
     public int BakerId {get; set;}
-    public string BakerName {get; set;}
+    public string Name {get; set;}
     public virtual ApplicationUser User {get; set;}
     
   }

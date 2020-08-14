@@ -36,5 +36,22 @@
           return View(_db.Bakers.ToList());
         }
 
+        [Authorize]
+        public ActionResult Create()
+        {
+          return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(Baker baker)
+        {
+          var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+          var currentUser = await _userManager.FindByIdAsync(userId);
+          baker.User = currentUser;
+          _db.Bakers.Add(baker);
+          _db.SaveChanges();
+          return RedirectToAction("Index");
+        }
+
     }
   }

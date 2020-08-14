@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Savory.Models;
-
 using Microsoft.AspNetCore.Identity;
 
 namespace Savory

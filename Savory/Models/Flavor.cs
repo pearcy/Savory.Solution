@@ -6,12 +6,12 @@ namespace Savory.Models
   {
     public Flavor()
     {
-      this.Flavors = new HashSet<FlavorTreat>();
+      this.Treats = new HashSet<FlavorTreat>();
     }
     public int FlavorId {get; set;}
     public string FlavorName {get; set;}
     // public virtual ApplicationUser User {get; set;}
-    public virtual ICollection<FlavorTreat> Flavors {get; set;}
+    public virtual ICollection<FlavorTreat> Treats {get; set;}
 
   } 
 }

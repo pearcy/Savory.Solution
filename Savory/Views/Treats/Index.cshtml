@@ -2,20 +2,32 @@
   Layout = "_Layout";
 }
 
+@* Not sure I need these changes -- how to make it open to view *@
+
 @using Savory.Models;
-@model List<Savory.Models.Treat>;
+@* @model List<Savory.Models.Treat>; *@
+  @model IEnumerable<Savory.Models.Treat>
 
-<h1>Treats</h1>
+<h1>Treats for @User.Identity.Name</h1>
 
-@if (@Model.Count == 0)
+@* <h1>Treats</h1> *@
+
+@* @if (@Model.Count == 0) *@
+@if (@Model.Any())
 {
-  <h3>No Treats have been added yet!</h3>
+  <ul>
+    @foreach (Treat treat in Model)
+    {
+      <li>@Html.ActionLink($"{treat.TreatName}", "Details", new { id = treat.TreatId })</li>
+    }
+  </ul>
+
 } 
-
-@foreach (Treat treat in Model)
+else
 {
-  <li>@Html.ActionLink($"{treat.TreatName}", "Details", new { id = treat.TreatId })</li>
+<h3>No Treats have been added yet!</h3>
 }
+
 
 <p>@Html.ActionLink("Add new Treat", "Create")</p>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>

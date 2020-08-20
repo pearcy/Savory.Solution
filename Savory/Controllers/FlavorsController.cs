@@ -12,11 +12,11 @@ using Savory.Models;
 
 namespace Savory.Controllers
 {
-  [Authorize] 
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly SavoryContext _db;
-     private readonly UserManager<ApplicationUser> _userManager; 
+    private readonly UserManager<ApplicationUser> _userManager;
 
 
     public FlavorsController(UserManager<ApplicationUser> userManager, SavoryContext db)
@@ -24,13 +24,14 @@ namespace Savory.Controllers
       _userManager = userManager;
       _db = db;
     }
-   public async Task<ActionResult> Index()
-{
-    var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    var currentUser = await _userManager.FindByIdAsync(userId);
-    var userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
-    return View(userFlavors);
-}
+    
+    public async Task<ActionResult> Index()
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userFlavors);
+    }
 
     public ActionResult Create()
     {
@@ -39,29 +40,29 @@ namespace Savory.Controllers
     }
 
     [HttpPost]
-public async Task<ActionResult> Create(Flavor flavor, int TreatId)
-{
-    var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    var currentUser = await _userManager.FindByIdAsync(userId);
-    flavor.User = currentUser;
-    _db.Flavors.Add(flavor);
-    if (TreatId != 0)
+    public async Task<ActionResult> Create(Flavor flavor, int TreatId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
+      if (TreatId != 0)
+      {
         _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
-    _db.SaveChanges();
-    return RedirectToAction("Index");
-}
-  
+
 
     public ActionResult Details(int id)
-   {
-     var thisFlavor = _db.Flavors
-         .Include(flavor => flavor.Treats)
-         .ThenInclude(join => join.Treat)
-         .FirstOrDefault(flavor => flavor.FlavorId == id);
-     return View(thisFlavor);
-   }
+    {
+      var thisFlavor = _db.Flavors
+          .Include(flavor => flavor.Treats)
+          .ThenInclude(join => join.Treat)
+          .FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
+    }
 
     public ActionResult Edit(int id)
     {
